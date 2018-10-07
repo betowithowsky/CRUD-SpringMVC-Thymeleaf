@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html xmlsn:th="http://www.thymeleaf.org">
+    <head>
+        <title>Gerenciamento de Produtos</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    </head>
+    <body>
+        <h1>Gerenciamento de Produtos</h1>
+        
+        <div class="container">
+            <div class="row">
+                <div class="col-sm"></div>
+                <th:block th:include="produto/mensagemValidacao"></th:block>
+
+                <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Ações</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr th:each="produto : ${produtos}">
+                        <th scope="row"><span th:text="${produto.id}"></span></th>
+                        <th><span th:text="${produto.nome}"></span></th>
+                        <th><span th:text="${produto.status}"></span></th>
+
+                        <td>
+                            <a data-toggle="modal" data-target="#exampleModal" th:href="@{/editarProduto{id}(id = ${produto.id}) }">Editar</a>
+                            <a >Deletar</a>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">Adicionar Novo</button>
+                </div>
+            </div>
+        
+            
+            
+            <div class="container">
+                <div class="card">
+                    
+                    <div class="myForm">
+                        
+                        <form th:action="@{/save}" method="post">
+                            
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <h5 class="modal-title" id="exampleModalLabel">Produtos - Inclusão</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                      </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                          <label class="col-form-label">Nome:</label>
+                                          <input type="text" class="form-control" name="nome" value=""/>
+                                        </div>
+                                        <div class="form-group">
+                                          <label class="col-form-label">Preço Compra:</label>
+                                          <input type="text" class="form-control" name="precoCompra" value=""/>
+                                        </div>
+                                        <div class="form-group">
+                                          <label class="col-form-label">Preço Venda:</label>
+                                          <input type="text" class="form-control" name="precoVenda" value=""/>
+                                        </div>
+                                        <div class="form-group">
+                                          <label class="col-form-label">Quantidade:</label>
+                                          <input type="text" class="form-control" name="quantidade" value=""/>
+                                        </div>
+                                        
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="customRadioInline1" name="status" class="custom-control-input" value="disponivel">
+                                          <label class="custom-control-label" for="customRadioInline1">Disponível</label>
+                                        </div>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                          <input type="radio" id="customRadioInline2" name="status" class="custom-control-input" value="indisponivel">
+                                          <label class="custom-control-label" for="customRadioInline2">Indisponível</label>
+                                        </div>                                        
+                                        <div class="form-group">
+                                          <label class="col-form-label">Data:</label>
+                                          <input type="date" class="form-control" name="dataCadastro" value=""/>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                      <button type="submit" class="btn btn-primary">Salvar</button>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                            
+                        </form>
+                        
+                        <!--delete modal-->
+                        <div class="modal fade" id="deleteModal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"
+                                                aria-hidden="true">×
+                                        </button>
+                                        <h3 id="delModalLabel">Confirmação de Delete</h3>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p class="error-text"><strong>Você tem certeza que deseja deletar esse produto? ?</strong></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn " data-dismiss="modal" aria-hidden="true">
+                                            Cancelar
+                                        </button>
+                                        <a th:href="@{/deletarProduto/{id}(id=${produto.id})}">
+                                            <span class="btn btn-danger" value="delete">Delete</span></a>
+
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <!--end delete modal-->
+                        
+                    </div>
+                </div>                
+            </div>   
+            
+    </body>
+</html>

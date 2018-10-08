@@ -7,6 +7,7 @@ $(document).ready(function(){
         $.getJSON("/editProduto/" + id, function(data){
             console.log(data);
             var form = $(".myForm");
+            $(".modal-body").append("<input type=\"hidden\" class=\"form-control\" name=\"id\" value=\"\"/>");
             form.find("input[name=id]").val(data.id);
             form.find("input[name=nome]").val(data.nome);
             form.find("input[name=descricao]").val(data.descricao);

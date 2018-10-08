@@ -24,6 +24,7 @@ public class Produto implements Serializable{
     private long id;    
 
     private String nome;
+    private String descricao;
     private float precoCompra;
     private float precoVenda;    
     private int quantidade;
@@ -41,6 +42,14 @@ public class Produto implements Serializable{
     public String getNome() {
         return nome;
     }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }    
 
     public String getStatus() {
         return status;

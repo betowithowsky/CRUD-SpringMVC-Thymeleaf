@@ -10,9 +10,10 @@ and open the template in the editor.
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
-        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+        <script type="text/javascript" th:src="@{/js/main.js}" src="../static/js/main.js"></script>
 
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     </head>
@@ -21,8 +22,9 @@ and open the template in the editor.
         
         <div class="container">
             <div class="row">
-                <div class="col-sm"></div>
                 <th:block th:include="produto/mensagemValidacao"></th:block>
+                <div class="col-sm"></div>
+                
 
                 <table class="table table-striped">
                 <thead>
@@ -41,8 +43,8 @@ and open the template in the editor.
                         <th><span th:text="${produto.status}"></span></th>
 
                         <td>
-                            <a data-toggle="modal" data-target="#exampleModal" th:href="@{/editarProduto{id}(id = ${produto.id}) }">Editar</a>
-                            <a >Deletar</a>
+                            <button th:attr="data-id=${produto.id}" class="eBtn btn btn-primary">Editar</button>
+                            <button class="btn btn-danger dBtn" th:attr="data-id=${produto.id}" data-toggle="modal" data-target="#deleteModal">Deletar</button>
                         </td>
                     </tr>
                 </tbody>
@@ -75,6 +77,10 @@ and open the template in the editor.
                                         <div class="form-group">
                                           <label class="col-form-label">Nome:</label>
                                           <input type="text" class="form-control" name="nome" value=""/>
+                                        </div>
+                                        <div class="form-group">
+                                          <label class="col-form-label">Descrição:</label>
+                                          <input type="text" class="form-control" name="descricao" value=""/>
                                         </div>
                                         <div class="form-group">
                                           <label class="col-form-label">Preço Compra:</label>
@@ -120,17 +126,18 @@ and open the template in the editor.
                                         <button type="button" class="close" data-dismiss="modal"
                                                 aria-hidden="true">×
                                         </button>
-                                        <h3 id="delModalLabel">Confirmação de Delete</h3>
+                                        <h3 class="modal-title" id="modal-title">Confirmação de Delete</h3>
                                     </div>
                                     <div class="modal-body">
-                                        <p class="error-text"><strong>Você tem certeza que deseja deletar esse produto? ?</strong></p>
+                                        <p class="error-text"><strong>Deseja Remover o Produto</strong></p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button class="btn " data-dismiss="modal" aria-hidden="true">
+                                        <button class="btn" data-dismiss="modal" aria-hidden="true">
                                             Cancelar
                                         </button>
-                                        <a th:href="@{/deletarProduto/{id}(id=${produto.id})}">
-                                            <span class="btn btn-danger" value="delete">Delete</span></a>
+                                        <button class="btn dBtn1" data-dismiss="modal" aria-hidden="true">
+                                            Deletar
+                                        </button>
 
                                     </div>
                                 </div>

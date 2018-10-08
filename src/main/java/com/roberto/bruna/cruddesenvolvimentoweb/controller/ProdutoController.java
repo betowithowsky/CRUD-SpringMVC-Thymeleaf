@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -52,18 +53,18 @@ public class ProdutoController {
         return "redirect:/";
     }
     
-    @RequestMapping("/deletarProduto")
-    public String deletarProduto(long id){
+    @RequestMapping("deletarProduto/{id}")
+    public String deletarProduto(@PathVariable("id") long id ){
         Produto produto = pr.findById(id);
         pr.delete(produto);
         
         return "redirect:/";
     }
     
-    @RequestMapping(value="editarEvento/{id}", method=RequestMethod.GET)
-    public String editarEvento(@PathVariable("produto") long id, ModelMap model){
-        model.put("produto", pr.findById(id));
-        return "evento/edit";
+    @RequestMapping(value="/editProduto/{id}", method=RequestMethod.GET)
+    @ResponseBody
+    public Produto editarEvento(@PathVariable("id") long id){
+        return pr.findById(id);
     }
     
     @RequestMapping(value="/editarProduto",method=RequestMethod.POST)

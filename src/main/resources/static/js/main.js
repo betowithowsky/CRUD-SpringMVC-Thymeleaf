@@ -10,7 +10,7 @@ $(document).ready(function(){
             $(".modal-body").append("<input type=\"hidden\" class=\"form-control\" name=\"id\" value=\"\"/>");
             form.find("input[name=id]").val(data.id);
             form.find("input[name=nome]").val(data.nome);
-            form.find("input[name=descricao]").val(data.descricao);
+            form.find("textarea[name=descricao]").val(data.descricao);
             form.find("input[name=precoCompra]").val(data.precoCompra);
             form.find("input[name=precoVenda]").val(data.precoVenda);
             form.find("input[name=quantidade]").val(data.quantidade);
@@ -26,7 +26,9 @@ $(document).ready(function(){
         var id = $(this).data("id");
         console.log(id);
         if($('.dBtn1').on('click', function(){
-            $.post("/deletarProduto/" + id);
+            $.post("/deletarProduto/" + id, function(){
+                $.post("/");
+            });
         }));
     });
             

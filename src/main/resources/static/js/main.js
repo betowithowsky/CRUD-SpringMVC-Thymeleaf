@@ -14,7 +14,7 @@ $(document).ready(function(){
             form.find("input[name=precoCompra]").val(data.precoCompra);
             form.find("input[name=precoVenda]").val(data.precoVenda);
             form.find("input[name=quantidade]").val(data.quantidade);
-            form.find("input[name=status]").val(data.status);
+            $(".custom-control-input[value= "+ data.status+ "]").prop("checked", true);
             form.find("input[name=nome]").val(data.nome);
         });
         

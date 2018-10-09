@@ -54,11 +54,12 @@ public class ProdutoController {
     }
     
     @RequestMapping("deletarProduto/{id}")
+    @ResponseBody
     public String deletarProduto(@PathVariable("id") long id ){
         Produto produto = pr.findById(id);
         pr.delete(produto);
         
-        return "redirect:/";
+        return "OK";
     }
     
     @RequestMapping(value="/editProduto/{id}", method=RequestMethod.GET)

@@ -26,8 +26,9 @@ $(document).ready(function(){
         var id = $(this).data("id");
         console.log(id);
         if($('.dBtn1').on('click', function(){
-            $.post("/deletarProduto/" + id, function(){
-                $.post("/");
+            $.post("/deletarProduto/" + id, null, function(result){
+                console.log(result);
+                window.location.href = "/";
             });
         }));
     });
